@@ -15,7 +15,7 @@ class Appn(ttkb.Window):
 
 		#diff frame
 		self.head=Header(self)
-		self.whearS
+		# self.de
 
 		# btn_1=ttkb.Button(self,text='btn1',bootstyle='primary')
 		# btn_1.pack()
