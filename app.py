@@ -1,4 +1,5 @@
 # ui of the program
+from PIL import Image, ImageTk
 import tkinter as tk 
 import ttkbootstrap as ttkb  
 import json,time
@@ -6,6 +7,7 @@ data=json.loads('{"coord":{"lon":86.1833,"lat":22.8},"weather":[{"id":721,"main"
 def prn():
 	#Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit
 	print(f'temperature {data['main']['temp']}')
+
 	print(f'temperature relative to human {data['main']['feels_like']}')
 	print(f'minimum temperature {data['main']['temp_min']}')
 	print(f'maximum temperature {data['main']['temp_max']}')
@@ -52,7 +54,11 @@ class Display_frm(ttkb.Frame):
 
 
 	def widgit(self):
-		pass
+		self.degree = tk.StringVar(value=None)
+		self.columnconfigure((0,1,2),weight=1,uniform='b')
+		self.rowconfigure(0,weight=1,uniform='b')
+		python_dark = Image.open('bx-sun.svg')	
+		lab1=ttkb.Label(self,text=self.degree, font=('JetBrains Mono NL', 20),style='primary')
 
 class Header(ttkb.Frame):
 	def __init__(self,parent):
@@ -74,10 +80,11 @@ class Search_frm(ttkb.Frame):
 
 	def prnt(self):
 		print(self.input_city.get())
+		self.degree.set(data['main']['temp'])
 
 
 	def widgit(self):
-		self.input_city = tk.StringVar()
+		self.input_city = tk.StringVar(value=None)
 		self.columnconfigure((0,1,2),weight=1,uniform='a')
 		self.rowconfigure(0,weight=1,uniform='a')
 
