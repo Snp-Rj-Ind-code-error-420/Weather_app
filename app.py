@@ -26,6 +26,9 @@ def prn():
 	print(f'date = {data['dt']} {time.localtime(data['dt'])}\n {x[2]}/{x[1]}/{x[0]} {x[3]}:{x[4]}:{x[5]} ')
 	x=time.gmtime(data['dt'])
 	print(f'date = {data['dt']} {time.gmtime(data['dt'])}\n {x[2]}/{x[1]}/{x[0]} {x[3]}:{x[4]}:{x[5]} ')
+
+
+	
 class Appn(ttkb.Window):
 	def __init__(self,title,size,*args, **kwargs):
 		super().__init__(themename='pulse')
@@ -71,19 +74,6 @@ class Base():
 		lab101=ttkb.Label(self,text='', font=('JetBrains Mono NL', 20),style='primary')
 		lab101.grid(row=0,column=0,sticky='nsew',columnspan=2,padx = 20, pady = 10)
 
-
-	def widgit2(self):
-		self.input_city = tk.StringVar(value=None)
-		self.columnconfigure((0,1,2),weight=1,uniform='a')
-		self.rowconfigure(0,weight=1,uniform='a')
-
-		entry1=ttkb.Entry(self,style='primary',textvariable=self.input_city,width=10 )
-		btn1=ttkb.Button(self,text='search',style='info.Outline',command=self.prnt)
-
-		# entry1.insert('enter the city')
-
-		entry1.grid(row=0,column=0,sticky='nsew',columnspan=2,padx = 20, pady = 10)
-		btn1.grid(row=0,column=2,sticky='nsew',padx = 20, pady = 10)
 
 
 class All_frm(ttkb.Frame):
