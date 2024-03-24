@@ -1,6 +1,5 @@
 from setting import *
-import json
-import requests
+import json,time,requests
 city_name='jamshedpur'
 
 API_Endpoint=f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}"
@@ -9,6 +8,7 @@ API_Endpoint_forcast=f"https://api.openweathermap.org/data/2.5/forecast?q={city_
 print(API_Endpoint)
 print(API_Endpoint_forcast)
 def prn():
+	#Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit
 	print(f'temperature {data['main']['temp']}')
 	print(f'temperature relative to human {data['main']['feels_like']}')
 	print(f'minimum temperature {data['main']['temp_min']}')
@@ -24,6 +24,10 @@ def prn():
 	print()
 	print(f'cloud % {data['clouds']['all']}%') # %
 	print()
+	x=time.localtime(data['dt'])
+	print(f'date = {data['dt']} {time.localtime(data['dt'])}\n {x[2]}/{x[1]}/{x[0]} {x[3]}:{x[4]}:{x[5]} ')
+	x=time.gmtime(data['dt'])
+	print(f'date = {data['dt']} {time.gmtime(data['dt'])}\n {x[2]}/{x[1]}/{x[0]} {x[3]}:{x[4]}:{x[5]} ')
 
 
 response = requests.get(API_Endpoint)
@@ -40,9 +44,8 @@ prn()
 
 # response = requests.get(API_Endpoint_forcast)
 # print(response.status_code)
-# data2 = response.json()
+# data = response.json()
 # print(data)
-#Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit
 
 # print(data2)
 
