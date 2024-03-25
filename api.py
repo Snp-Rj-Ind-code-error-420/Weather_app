@@ -5,8 +5,6 @@ city_name='jamshedpur'
 API_Endpoint=f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}"
 API_Endpoint_metric=f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}&units=metric"
 API_Endpoint_forcast=f"https://api.openweathermap.org/data/2.5/forecast?q={city_name}&appid={API_key}"
-print(API_Endpoint)
-print(API_Endpoint_forcast)
 def prn():
 	#Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit
 	print(f'temperature {data['main']['temp']}')
@@ -62,6 +60,9 @@ def pull(city_nam):
 	return data
 
 if __name__=='__main__':
+	print(API_Endpoint) # api url not be leaked anywhere in the program 
+
+	print(API_Endpoint_forcast) # api url not be leaked anywhere in the program 
 
 	response = requests.get(API_Endpoint)
 	print(response.status_code)
