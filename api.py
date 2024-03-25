@@ -10,6 +10,7 @@ print(API_Endpoint_forcast)
 def prn():
 	#Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit
 	print(f'temperature {data['main']['temp']}')
+
 	print(f'temperature relative to human {data['main']['feels_like']}')
 	print(f'minimum temperature {data['main']['temp_min']}')
 	print(f'maximum temperature {data['main']['temp_max']}')
@@ -24,23 +25,56 @@ def prn():
 	print()
 	print(f'cloud % {data['clouds']['all']}%') # %
 	print()
+	print(f'main={data['weather'][0]['main']}')
+	print(f'city {data['name']},{data['sys']['country']}')
+	print()
+	sunrise=time.localtime(data['sys']['sunrise'])
+	print(f'sunrise {sunrise[2]}/{sunrise[1]}/{sunrise[0]} {sunrise[3]}:{sunrise[4]}:{sunrise[5]} ')
+	sunset=time.localtime(data['sys']['sunset'])
+	print(f'sunrise {sunset[2]}/{sunset[1]}/{sunset[0]} {sunset[3]}:{sunset[4]}:{sunset[5]} ')
+	print()
 	x=time.localtime(data['dt'])
 	print(f'date = {data['dt']} {time.localtime(data['dt'])}\n {x[2]}/{x[1]}/{x[0]} {x[3]}:{x[4]}:{x[5]} ')
 	x=time.gmtime(data['dt'])
 	print(f'date = {data['dt']} {time.gmtime(data['dt'])}\n {x[2]}/{x[1]}/{x[0]} {x[3]}:{x[4]}:{x[5]} ')
 
 
-response = requests.get(API_Endpoint)
-print(response.status_code)
-data = response.json()
-print(data)
-prn()
+def pull(city_nam):
+	print('ok run it ')
+	API_Endpoint_metric=f"https://api.openweathermap.org/data/2.5/weather?q={city_nam}&appid={API_key}&units=metric"
+	response = requests.get(API_Endpoint_metric)
+	print(response.status_code)
+	if response.status_code==429:
+		print('api request limit crossed')
+		return 
+	if response.status_code==404:
+		print('error not found wtf you looking for')
+		return
+	if response.status_code==401:
+		print('Unauthorise api wtf you change the api code or what')
+		return
+	if response.status_code==400:
+		print('your request parametr is fucking wrong')
+		return
 
-response = requests.get(API_Endpoint_metric)
-print(response.status_code)
-data = response.json()
-print(data)
-prn()
+
+	data = response.json()
+	return data
+
+if __name__=='__main__':
+
+	response = requests.get(API_Endpoint)
+	print(response.status_code)
+	print(type(response.status_code))
+	data = response.json()
+	print(data)
+	prn()
+
+	response = requests.get(API_Endpoint_metric)
+	print(response.status_code)
+	data = response.json()
+	print(data)
+	prn()
 
 # response = requests.get(API_Endpoint_forcast)
 # print(response.status_code)

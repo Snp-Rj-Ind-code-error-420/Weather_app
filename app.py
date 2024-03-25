@@ -1,5 +1,6 @@
 # ui of the program
 from PIL import Image, ImageTk
+from api import pull
 import tkinter as tk 
 import ttkbootstrap as ttkb  
 import json,time
@@ -28,6 +29,14 @@ def prn():
 	print()
 	print(f'cloud % {data['clouds']['all']}%') # %
 	print()
+	print(f'main={data['weather'][0]['main']}')
+	print(f'city {data['name']},{data['sys']['country']}')
+	print()
+	sunrise=time.localtime(data['sys']['sunrise'])
+	print(f'sunrise {sunrise[2]}/{sunrise[1]}/{sunrise[0]} {sunrise[3]}:{sunrise[4]}:{sunrise[5]} ')
+	sunset=time.localtime(data['sys']['sunset'])
+	print(f'sunrise {sunset[2]}/{sunset[1]}/{sunset[0]} {sunset[3]}:{sunset[4]}:{sunset[5]} ')
+	print()
 	x=time.localtime(data['dt'])
 	print(f'date = {data['dt']} {time.localtime(data['dt'])}\n {x[2]}/{x[1]}/{x[0]} {x[3]}:{x[4]}:{x[5]} ')
 	x=time.gmtime(data['dt'])
@@ -53,8 +62,10 @@ class Appn(ttkb.Window):
 		# btn_1=ttkb.Button(self,text='btn1',bootstyle='primary')
 		# btn_1.pack()
 
-
 		self.mainloop()
+
+
+# heading frame
 class Header(ttkb.Frame):
 	def __init__(self,parent,*args, **kwargs):
 		super().__init__(parent,style='') #style='info'
@@ -67,14 +78,11 @@ class Header(ttkb.Frame):
 		lab1.pack(side='left',expand=True,fill='both',padx=10,pady=10)
 
 
-class Base():
-	def __init__(self,parent,*args, **kwargs):
-		super().__init__(parent)
 
 
 
 
-
+# all the frame including display and change frame
 
 class All_frm(ttkb.Frame):
 	def __init__(self,parent,*args, **kwargs):
@@ -93,37 +101,64 @@ class All_frm(ttkb.Frame):
 		frm2.place(relx=0.0,rely=0.15,relwidth=1,relheight=0.24)
 
 		self.widgit2(frm1)
-		self.widgit1(frm2)
+		self.display_unit(frm2)
 
 
 
 
 	def widgit2(self,parent):
-		self.input_city = tk.StringVar(value=None)
+		self.input_city = tk.StringVar()
 		parent.columnconfigure((0,1,2),weight=1,uniform='a')
 		parent.rowconfigure(0,weight=1,uniform='a')
 
 		entry1=ttkb.Entry(parent,style='primary',textvariable=self.input_city,width=10)
-		btn1=ttkb.Button(parent,text='search',style='info.Outline',command=self.prnt)
+		self.btn1=ttkb.Button(parent,text='search',style='info.Outline',command=self.prnt)
 
 		# entry1.insert('enter the city')
 
 		entry1.grid(row=0,column=0,sticky='nsew',columnspan=2,padx = 20, pady = 10)
-		btn1.grid(row=0,column=2,sticky='nsew',padx = 20, pady = 10)
+		self.btn1.grid(row=0,column=2,sticky='nsew',padx = 20, pady = 10)
 	
 
-	def widgit1(self,parent):
+	def display_unit(self,parent):
 		# print(self.degree.get())
-		parent.columnconfigure((0,1,2),weight=1,uniform='b')
+		parent.columnconfigure((0,1,2,3),weight=1,uniform='b')
 		parent.rowconfigure(0,weight=1,uniform='b')
-		parent.python_dark = Image.open('sun-regular-24.png')	
-		self.lab101=ttkb.Label(parent,text='', font=('JetBrains Mono NL', 20),style='primary')
-		self.lab101.grid(row=0,column=0,sticky='nsew',columnspan=2,padx = 20, pady = 10)
+		parent.rowconfigure(1,weight=1,uniform='b')
+
+		self.python_dark = Image.open('sun-regular-24.png').resize((35,35))
+		self.python_dark_tk = ImageTk.PhotoImage(self.python_dark)
+
+		self.labimg=ttkb.Label(parent,compound='left',text='op',image=self.python_dark_tk,font=('JetBrains Mono NL', 25),style='info',padding=5)
+		self.pressure=ttkb.Label(parent,text='pressure',font=('JetBrains Mono NL', 10),style='info')
+		self.humidity =ttkb.Label(parent,text='humidity',font=('JetBrains Mono NL', 10),style='info')
+		self.windspeed=ttkb.Label(parent,text='windspeed',font=('JetBrains Mono NL', 10),style='info')
+		self.cloud=ttkb.Label(parent,text='cloud',font=('JetBrains Mono NL', 10),style='info')
+
+
+		# self.lab101=ttkb.Label(parent,text='', font=('JetBrains Mono NL', 20),style='secondary.Inverse')/
+		self.labimg.grid(row=0,column=0,sticky='nswe',columnspan=2,rowspan=2,padx = 10, pady = 10)
+		self.pressure.grid(row=0,column=2,sticky='nswe',padx = 10, pady = 10)
+		self.humidity.grid(row=1,column=2,sticky='nswe',padx = 10, pady = 10)
+		self.windspeed.grid(row=0,column=3,sticky='nswe',padx = 10, pady = 10)
+		self.cloud.grid(row=1,column=3,sticky='nswe',padx = 10, pady = 10)
+
+		# self.lab101.grid(row=0,column=1,sticky='nsew',padx = 20, pady = 10)/
 
 
 	def prnt(self):
+		self.btn1['state']='disabled'
 		print(self.input_city.get())
-		self.lab101['text']=f'{data['main']['temp']}°C'
+		if self.input_city.get()!='':
+			data=pull(self.input_city.get())
+			date_today=time.localtime(data['dt'])
+			print(f'date = {data['dt']} {time.localtime(data['dt'])}\n {date_today[2]}/{date_today[1]}/{date_today[0]} {date_today[3]}:{date_today[4]}:{date_today[5]} ')
+			self.labimg['text']=f'  {data['main']['temp']}°C'
+			self.pressure['text']=f'pressure {data['main']['pressure']} hPa'
+			self.humidity['text']=f'humidity {data['main']['humidity']} %'
+			self.windspeed['text']=f'windspeed {data['wind']['speed']} m/s'
+			self.cloud['text']=f'cloud {data['clouds']['all']} m/s'
+			self.btn1['state']='active'
 
 
 
@@ -138,6 +173,6 @@ class All_frm(ttkb.Frame):
 
 
 prn()
-Appn("Weather App",(600,400))
+Appn("Weather App",(800,500))
 
 
