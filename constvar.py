@@ -3,15 +3,15 @@
 #theme name 
 
 debug=False
-debug=True
+# debug=True
 THM='pulse'
 TITLE_BAR='Weather App' # tital bar title
 SIZE_WIN=(800,500)
 
 WIN_TITLE='WEATHER APP' #window headinfg title
-
+fnt='JetBrains Mono NL'
 # title sub title text size and type 0 wintitle 1 additional info title 3celcies titel
-FONT_TP=(('JetBrains Mono NL', 20),('JetBrains Mono NL', 10),('JetBrains Mono NL', 25))
+FONT_TP=((fnt, 20),(fnt, 10),(fnt, 25))
 
 if debug==True:
 	LST=0

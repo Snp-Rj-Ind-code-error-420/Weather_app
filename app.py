@@ -114,18 +114,20 @@ class All_frm(ttkb.Frame):
 
 
 	def prnt(self):
-		self.btn1['state']='disabled'
+		self.btn1.config(state='disabled')
 		print(self.input_city.get())
 		if self.input_city.get()!='':
-			data=pull(self.input_city.get())
+			data=pull(self.input_city.get(),0)
 			date_today=time.localtime(data['dt'])
+
 			print(f'date = {data['dt']} {time.localtime(data['dt'])}\n {date_today[2]}/{date_today[1]}/{date_today[0]} {date_today[3]}:{date_today[4]}:{date_today[5]} ')
-			self.labimg['text']=f'  {data['main']['temp']}°C'
-			self.pressure['text']=f'pressure {data['main']['pressure']} hPa'
-			self.humidity['text']=f'humidity {data['main']['humidity']} %'
-			self.windspeed['text']=f'windspeed {data['wind']['speed']} m/s'
-			self.cloud['text']=f'cloud {data['clouds']['all']} m/s'
-			self.btn1['state']='active'
+
+			self.labimg.config(text=f'  {data['main']['temp']}°C')
+			self.pressure.config(text=f'pressure {data['main']['pressure']} hPa')
+			self.humidity.config(text=f'humidity {data['main']['humidity']} %')
+			self.windspeed.config(text=f'windspeed {data['wind']['speed']} m/s')
+			self.cloud.config(text=f'cloud {data['clouds']['all']} %')
+			self.btn1.config(state='active')
 		else:
 			print('empty string')
 			self.btn1['state']='active'

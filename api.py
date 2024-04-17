@@ -37,9 +37,13 @@ def prn():
 	print(f'date = {data['dt']} {time.gmtime(data['dt'])}\n {x[2]}/{x[1]}/{x[0]} {x[3]}:{x[4]}:{x[5]} ')
 
 
-def pull(city_nam):
+def pull(city_nam,x):
 	print('ok run it ')
-	API_Endpoint_metric=f"https://api.openweathermap.org/data/2.5/weather?q={city_nam}&appid={API_key}&units=metric"
+	if not x  :
+		API_Endpoint_metric=f"https://api.openweathermap.org/data/2.5/weather?q={city_nam}&appid={API_key}&units=metric"
+	else:
+		API_Endpoint_metric=f"https://api.openweathermap.org/data/2.5/forecast?q={city_name}&appid={API_key}&units=metric"
+
 	response = requests.get(API_Endpoint_metric)
 	print(response.status_code)
 	if response.status_code==429:
@@ -57,25 +61,47 @@ def pull(city_nam):
 
 
 	data = response.json()
+	print(data)
 	return data
 
 if __name__=='__main__':
-	print(API_Endpoint) # api url not be leaked anywhere in the program 
+	# print(API_Endpoint) # api url not be leaked anywhere in the program 
 
-	print(API_Endpoint_forcast) # api url not be leaked anywhere in the program 
+	# print(API_Endpoint_forcast) # api url not be leaked anywhere in the program 
 
-	response = requests.get(API_Endpoint)
-	print(response.status_code)
-	print(type(response.status_code))
-	data = response.json()
-	print(data)
-	prn()
+	# response = requests.get(API_Endpoint)
+	# print(response.status_code)
+	# print(type(response.status_code))
+	# data = response.json()
+	# print(data)
+	# prn()
 
-	response = requests.get(API_Endpoint_metric)
-	print(response.status_code)
-	data = response.json()
-	print(data)
-	prn()
+	# response = requests.get(API_Endpoint_metric)
+	# print(response.status_code)
+	# data = response.json()
+	# print(data)
+	# prn()
+
+
+	data=pull('goa',1)
+	print(len(data))
+	print()
+for _ in data:
+	print(_)
+	print()
+	print(f" {_} >> {data[_]}")
+	print()
+	print()
+	if _ == 'list':
+		for _ in data['list']:
+			print(_)
+			print()
+			print(_['dt_txt'])
+			print((_['dt_txt']).split(' '))
+			
+
+	
+	print()	
 
 # response = requests.get(API_Endpoint_forcast)
 # print(response.status_code)
