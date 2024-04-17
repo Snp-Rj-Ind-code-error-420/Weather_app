@@ -86,22 +86,38 @@ if __name__=='__main__':
 	data=pull('goa',1)
 	print(len(data))
 	print()
-for _ in data:
-	print(_)
-	print()
-	print(f" {_} >> {data[_]}")
-	print()
-	print()
-	if _ == 'list':
-		for _ in data['list']:
-			print(_)
-			print()
-			print(_['dt_txt'])
-			print((_['dt_txt']).split(' '))
-			
+	lst=set()
+	tm_=''
+	re_lst=[]
+	for _ in data:
+		print(_)
+		print()
+		print(f" {_} >> {data[_]}")
+		print()
+		print()
+		if _ == 'list':
+			tm_=((data['list'][0]['dt_txt']).split(' '))[1]
+			print(tm_)
+			for _ in data['list']:
+				# print(_)
+				# print()
+				# print(_['dt_txt'])
+				# print((_['dt_txt']).split(' '))
+				if ((_['dt_txt']).split(' '))[0] not in lst and ((_['dt_txt']).split(' '))[1] == tm_ :
+					print()
+					print(re_lst.append(_))
+					lst.add(((_['dt_txt']).split(' '))[0])
+					
 
-	
+
+
+		
 	print()	
+	print(lst)
+	ren_tuple=tuple(re_lst)
+	print(ren_tuple)
+	for _ in ren_tuple:
+		print(_)
 
 # response = requests.get(API_Endpoint_forcast)
 # print(response.status_code)
