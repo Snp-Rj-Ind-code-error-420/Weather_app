@@ -75,6 +75,9 @@ class All_frm(ttkb.Frame):
 
 
 
+
+
+
 	def search_unit(self,parent):
 		self.input_city = tk.StringVar()
 		parent.columnconfigure((0,1,2),weight=1,uniform='a')
@@ -92,6 +95,9 @@ class All_frm(ttkb.Frame):
 		entry1.grid(row=0,column=0,sticky='nsew',columnspan=2,padx = 20, pady = 10)
 		self.btn1.grid(row=0,column=2,sticky='nsew',padx = 20, pady = 10)
 	
+
+
+
 	def location_unit(self,parent):
 		parent.columnconfigure((0),weight=1,uniform='c')
 		parent.rowconfigure(0,weight=1,uniform='c')
@@ -99,7 +105,13 @@ class All_frm(ttkb.Frame):
 		self.location.grid(row=0,column=0,sticky='ns',padx=10,pady=10)
 
 
+
+
+
+
+
 	def display_unit(self,parent):
+
 		# print(self.degree.get())
 		parent.columnconfigure((0,1,2,3),weight=1,uniform='b')
 		parent.rowconfigure(0,weight=1,uniform='b')
@@ -123,6 +135,12 @@ class All_frm(ttkb.Frame):
 		self.cloud.grid(row=1,column=3,sticky='nswe',padx = 10, pady = 10)
 
 		# self.lab101.grid(row=0,column=1,sticky='nsew',padx = 20, pady = 10)/
+
+
+
+
+
+
 
 
 

@@ -1,10 +1,36 @@
 from setting import *
 import json,time,requests
 city_name='jamshedpur'
-
 API_Endpoint=f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}"
 API_Endpoint_metric=f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}&units=metric"
 API_Endpoint_forcast=f"https://api.openweathermap.org/data/2.5/forecast?q={city_name}&appid={API_key}"
+def pull(city_nam,x):
+	print('ok run it ')
+	if not x  :
+		API_Endpoint_metric=f"https://api.openweathermap.org/data/2.5/weather?q={city_nam}&appid={API_key}&units=metric"
+	else:
+		API_Endpoint_metric=f"https://api.openweathermap.org/data/2.5/forecast?q={city_name}&appid={API_key}&units=metric"
+
+	response = requests.get(API_Endpoint_metric)
+	print(response.status_code)
+	if response.status_code==429:
+		print('api request limit crossed')
+		return 
+	if response.status_code==404:
+		print('error not found wtf you looking for')
+		return
+	if response.status_code==401:
+		print('Unauthorise api wtf you change the api code or what')
+		return
+	if response.status_code==400:
+		print('your request parametr is fucking wrong')
+		return
+	data = response.json()
+	print(data)
+	return data
+
+
+
 def prn():
 	#Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit
 	print(f'temperature {data['main']['temp']}')
@@ -37,32 +63,6 @@ def prn():
 	print(f'date = {data['dt']} {time.gmtime(data['dt'])}\n {x[2]}/{x[1]}/{x[0]} {x[3]}:{x[4]}:{x[5]} ')
 
 
-def pull(city_nam,x):
-	print('ok run it ')
-	if not x  :
-		API_Endpoint_metric=f"https://api.openweathermap.org/data/2.5/weather?q={city_nam}&appid={API_key}&units=metric"
-	else:
-		API_Endpoint_metric=f"https://api.openweathermap.org/data/2.5/forecast?q={city_name}&appid={API_key}&units=metric"
-
-	response = requests.get(API_Endpoint_metric)
-	print(response.status_code)
-	if response.status_code==429:
-		print('api request limit crossed')
-		return 
-	if response.status_code==404:
-		print('error not found wtf you looking for')
-		return
-	if response.status_code==401:
-		print('Unauthorise api wtf you change the api code or what')
-		return
-	if response.status_code==400:
-		print('your request parametr is fucking wrong')
-		return
-
-
-	data = response.json()
-	print(data)
-	return data
 
 if __name__=='__main__':
 	# print(API_Endpoint) # api url not be leaked anywhere in the program 
