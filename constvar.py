@@ -6,7 +6,7 @@ debug=False
 # debug=True
 THM='pulse'
 TITLE_BAR='Weather App' # tital bar title
-SIZE_WIN=(800,500)
+SIZE_WIN=(405,390)
 
 WIN_TITLE='WEATHER APP' #window headinfg title
 fnt='JetBrains Mono NL'
@@ -24,7 +24,7 @@ STYL=(('secondary','')# header 0
 	,('info','') # all frm frm1 search 3
 	,('primary','') # all frm1 display output 4
 	,('primary','primary')# all fr1 search unit entry 5
-	,('warning','info.Outline') # all frm1 search unit button 6
+	,('warning.TButton','info.Outline.TButton') # all frm1 search unit button 6
 	,('success.Inverse','info') # all frm1 display unit all_lable 7
 	)
 

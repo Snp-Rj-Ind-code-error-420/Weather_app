@@ -1,4 +1,5 @@
 setting.py
 __pycache__/
+image/
 *.svg
 *.png

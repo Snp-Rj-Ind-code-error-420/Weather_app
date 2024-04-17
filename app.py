@@ -62,11 +62,15 @@ class All_frm(ttkb.Frame):
 		frm1=ttkb.Frame(self,style=STYL[3][LST])
 		frm1.place(relx = 0.0, rely = 0.0, relwidth = 1, relheight = 0.15)
 
-		frm2=ttkb.Frame(self,style=STYL[4][LST])
-		frm2.place(relx=0.0,rely=0.15,relwidth=1,relheight=0.24)
+		frm2=ttkb.Frame(self,style=STYL[2][LST])
+		frm2.place(relx = 0.0, rely = 0.15, relwidth = 1, relheight = 0.15)
+
+		frm3=ttkb.Frame(self,style=STYL[4][LST])
+		frm3.place(relx=0.0,rely=0.30,relwidth=1,relheight=0.24)
 
 		self.search_unit(frm1)
-		self.display_unit(frm2)
+		self.location_unit(frm2)
+		self.display_unit(frm3)
 
 
 
@@ -76,14 +80,23 @@ class All_frm(ttkb.Frame):
 		parent.columnconfigure((0,1,2),weight=1,uniform='a')
 		parent.rowconfigure(0,weight=1,uniform='a')
 
-		entry1=ttkb.Entry(parent,style=STYL[5][LST],textvariable=self.input_city,width=10)
+		s = ttkb.Style()
+		s.configure(STYL[6][LST], font=FONT_TP[1])
+
+		entry1=ttkb.Entry(parent,style=STYL[5][LST],font=FONT_TP[1],textvariable=self.input_city,width=10)
 		self.btn1=ttkb.Button(parent,text='search',style=STYL[6][LST],command=self.prnt)
+		# self.btn1.configure(font=FONT_TP[1])
 
 		# entry1.insert('enter the city')
 
 		entry1.grid(row=0,column=0,sticky='nsew',columnspan=2,padx = 20, pady = 10)
 		self.btn1.grid(row=0,column=2,sticky='nsew',padx = 20, pady = 10)
 	
+	def location_unit(self,parent):
+		parent.columnconfigure((0),weight=1,uniform='c')
+		parent.rowconfigure(0,weight=1,uniform='c')
+		self.location=ttkb.Label(parent,text='location',font=FONT_TP[0],style=STYL[7][LST],justify='center')
+		self.location.grid(row=0,column=0,sticky='ns',padx=10,pady=10)
 
 
 	def display_unit(self,parent):
@@ -121,8 +134,8 @@ class All_frm(ttkb.Frame):
 			date_today=time.localtime(data['dt'])
 
 			print(f'date = {data['dt']} {time.localtime(data['dt'])}\n {date_today[2]}/{date_today[1]}/{date_today[0]} {date_today[3]}:{date_today[4]}:{date_today[5]} ')
-
-			self.labimg.config(text=f'  {data['main']['temp']}°C')
+			self.location.config(text=f'{ data['name']},{data['sys']['country']}')
+			self.labimg.config(text=f'  {data['main']['temp']}°C ,{data['weather'][0]['description']}')
 			self.pressure.config(text=f'pressure {data['main']['pressure']} hPa')
 			self.humidity.config(text=f'humidity {data['main']['humidity']} %')
 			self.windspeed.config(text=f'windspeed {data['wind']['speed']} m/s')

@@ -83,7 +83,14 @@ if __name__=='__main__':
 	# prn()
 
 
-	data=pull('goa',1)
+	data=pull('new york',0)
+	print(data)
+	print(data['sys']['country'])
+	print(data['name'])
+	print(f'{ data['name']},{data['sys']['country']}')
+	print(data['weather'][0]['description'])
+
+	exit()
 	print(len(data))
 	print()
 	lst=set()
