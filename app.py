@@ -63,13 +63,13 @@ class All_frm(ttkb.Frame):
 
 
 		frm1=ttkb.Frame(self,style=STYL[3][LST])
-		frm1.place(relx = 0.0, rely = 0.0, relwidth = 1, relheight = 0.15)
+		frm1.place(relx = 0.0, rely = 0.0, relwidth = 1, relheight = 0.10)
 
 		frm2=ttkb.Frame(self,style=STYL[2][LST])
-		frm2.place(relx = 0.0, rely = 0.15, relwidth = 1, relheight = 0.15)
+		frm2.place(relx = 0.0, rely = 0.10, relwidth = 1, relheight = 0.10)
 
 		frm3=ttkb.Frame(self,style=STYL[4][LST])
-		frm3.place(relx=0.0,rely=0.30,relwidth=1,relheight=0.24)
+		frm3.place(relx=0.0,rely=0.2,relwidth=1,relheight=0.24)
 
 		self.search_unit(frm1)
 		self.location_unit(frm2)
@@ -104,7 +104,7 @@ class All_frm(ttkb.Frame):
 	def location_unit(self,parent):
 		parent.columnconfigure((0),weight=1,uniform='c')
 		parent.rowconfigure(0,weight=1,uniform='c')
-		self.location=ttkb.Label(parent,text='location',font=FONT_TP[0],style=STYL[7][LST],justify='center')
+		self.location=ttkb.Label(parent,text='location',font=FONT_TP[1],style=STYL[7][LST],justify='center')
 		self.location.grid(row=0,column=0,sticky='ns',padx=10,pady=10)
 
 
@@ -119,6 +119,7 @@ class All_frm(ttkb.Frame):
 		parent.columnconfigure((0,1,2,3),weight=1,uniform='b')
 		parent.rowconfigure(0,weight=1,uniform='b')
 		parent.rowconfigure(1,weight=1,uniform='b')
+		parent.rowconfigure(2,weight=1,uniform='b')
 
 		self.python_dark = Image.open('sun-regular-24.png').resize((35,35))
 		self.python_dark_tk = ImageTk.PhotoImage(self.python_dark)
@@ -128,14 +129,18 @@ class All_frm(ttkb.Frame):
 		self.humidity =ttkb.Label(parent,text='humidity',font=FONT_TP[1],style=STYL[7][LST])
 		self.windspeed=ttkb.Label(parent,text='windspeed',font=FONT_TP[1],style=STYL[7][LST])
 		self.cloud=ttkb.Label(parent,text='cloud',font=FONT_TP[1],style=STYL[7][LST])
+		self.sunrise=ttkb.Label(parent,text='sunrise',font=FONT_TP[1],style=STYL[7][LST])
+		self.sunset=ttkb.Label(parent,text='sunset',font=FONT_TP[1],style=STYL[7][LST])
 
 
 		# self.lab101=ttkb.Label(parent,text='', font=('JetBrains Mono NL', 20),style='secondary.Inverse')/
-		self.labimg.grid(row=0,column=0,sticky='nswe',columnspan=2,rowspan=2,padx = 10, pady = 10)
-		self.pressure.grid(row=0,column=2,sticky='nswe',padx = 10, pady = 10)
-		self.humidity.grid(row=1,column=2,sticky='nswe',padx = 10, pady = 10)
-		self.windspeed.grid(row=0,column=3,sticky='nswe',padx = 10, pady = 10)
-		self.cloud.grid(row=1,column=3,sticky='nswe',padx = 10, pady = 10)
+		self.labimg.grid(row=0,column=0,sticky='nswe',columnspan=2,rowspan=2,padx = 5, pady = 5)
+		self.pressure.grid(row=0,column=2,sticky='nswe',padx = 5, pady = 5)
+		self.humidity.grid(row=1,column=2,sticky='nswe',padx = 5, pady = 5)
+		self.windspeed.grid(row=0,column=3,sticky='nswe',padx = 5, pady = 5)
+		self.cloud.grid(row=1,column=3,sticky='nswe',padx = 5, pady = 5)
+		self.sunrise.grid(row=2,column=0,columnspan=2,sticky='ns',padx = 5, pady = 5)
+		self.sunset.grid(row=2,column=2,columnspan=2,sticky='ns',padx = 5, pady = 5)
 
 		# self.lab101.grid(row=0,column=1,sticky='nsew',padx = 20, pady = 10)/
 
@@ -161,6 +166,12 @@ class All_frm(ttkb.Frame):
 			self.humidity.config(text=f'humidity {data['main']['humidity']} %')
 			self.windspeed.config(text=f'windspeed {data['wind']['speed']} m/s')
 			self.cloud.config(text=f'cloud {data['clouds']['all']} %')
+
+			sunrise=time.localtime(data['sys']['sunrise'])
+			sunset=time.localtime(data['sys']['sunset'])
+
+			self.sunrise.config(text=f'sunrise {sunrise[2]}/{sunrise[1]}/{sunrise[0]} {sunrise[3]}:{sunrise[4]}:{sunrise[5]}')
+			self.sunset.config(text=f'sunset {sunset[2]}/{sunset[1]}/{sunset[0]} {sunset[3]}:{sunset[4]}:{sunset[5]}')
 			self.btn1.config(state='active')
 		else:
 			print('empty string')
