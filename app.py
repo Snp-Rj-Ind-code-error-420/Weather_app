@@ -125,7 +125,7 @@ class All_frm(ttkb.Frame):
 		parent.rowconfigure(1,weight=1,uniform='b')
 		parent.rowconfigure(2,weight=1,uniform='b')
 
-		self.python_dark = Image.open('sun-regular-24.png').resize((35,35))
+		self.python_dark = Image.open('thermo.png').resize((40,40))
 		self.python_dark_tk = ImageTk.PhotoImage(self.python_dark)
 
 		self.labimg=ttkb.Label(parent,compound='left',text='op',image=self.python_dark_tk,font=FONT_TP[2],style=STYL[7][LST],padding=5)
@@ -135,7 +135,6 @@ class All_frm(ttkb.Frame):
 		self.cloud=ttkb.Label(parent,text='cloud',font=FONT_TP[1],style=STYL[7][LST])
 		self.sunrise=ttkb.Label(parent,text='sunrise',font=FONT_TP[1],style=STYL[7][LST])
 		self.sunset=ttkb.Label(parent,text='sunset',font=FONT_TP[1],style=STYL[7][LST])
-
 
 		# self.lab101=ttkb.Label(parent,text='', font=('JetBrains Mono NL', 20),style='secondary.Inverse')/
 		self.labimg.grid(row=0,column=0,sticky='nswe',columnspan=2,rowspan=2,padx = 5, pady = 5)
@@ -240,11 +239,9 @@ class All_frm(ttkb.Frame):
 				self.sunset.config(text=f'sunset {sunset[2]}/{sunset[1]}/{sunset[0]} {sunset[3]}:{sunset[4]}:{sunset[5]}')
 
 
-
 				self.tm_mx_d1.config(text=f'temp max {forcast_data[1]['main']['temp_max']}')
 				self.tm_mn_d1.config(text=f'temp min {forcast_data[1]['main']['temp_min']}')
 				self.tm_date1.config(text=f' {(forcast_data[1]['dt_txt']).split(' ')[0]} \n {(forcast_data[1]['dt_txt']).split(' ')[1]} ')
-
 
 				self.tm_mx_d2.config(text=f'temp max {forcast_data[2]['main']['temp_max']}')
 				self.tm_mn_d2.config(text=f'temp min {forcast_data[2]['main']['temp_min']}')
@@ -254,20 +251,16 @@ class All_frm(ttkb.Frame):
 				self.tm_mn_d3.config(text=f'temp min {forcast_data[3]['main']['temp_min']}')
 				self.tm_date3.config(text=f' {(forcast_data[3]['dt_txt']).split(' ')[0]} \n {(forcast_data[1]['dt_txt']).split(' ')[1]} ')
 
-
 				self.tm_mx_d4.config(text=f'temp max {forcast_data[4]['main']['temp_max']}')
 				self.tm_mn_d4.config(text=f'temp min {forcast_data[4]['main']['temp_min']}')
 				self.tm_date4.config(text=f' {(forcast_data[4]['dt_txt']).split(' ')[0]} \n {(forcast_data[1]['dt_txt']).split(' ')[1]} ')
-
-
-
 
 				self.btn1.config(state='active')
 			else:
 				print('empty string')
 				self.btn1['state']='active'
 
-				
+
 		except Exception as e:
 			print('error occure>>',e)
 			self.btn1['state']='active'

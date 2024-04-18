@@ -4,7 +4,7 @@
 
 debug=False
 # debug=True
-THM='vapor'
+THM='darkly'
 TITLE_BAR='Weather App' # tital bar title
 SIZE_WIN=(405,390)
 
@@ -19,13 +19,13 @@ else:
 	LST=1
 # 0 for debug true and 1 for false
 STYL=(('secondary','')# header 0
-	,('primary','primary') # header title lable 1
+	,('primary','danger') # header title lable 1
 	,('danger','') # all frame stle 2
 	,('info','') # all frm frm1 search 3
 	,('primary','') # all frm1 display output 4
-	,('primary','primary')# all fr1 search unit entry 5
-	,('warning.TButton','info.Outline.TButton') # all frm1 search unit button 6
-	,('success.Inverse','info') # all frm1 display unit all_lable 7
+	,('primary','danger')# all fr1 search unit entry 5
+	,('warning.TButton','danger.Outline.TButton') # all frm1 search unit button 6
+	,('success.Inverse','danger') # all frm1 display unit all_lable 7
 	)
 
 
