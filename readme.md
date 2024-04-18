@@ -8,8 +8,8 @@
 ### todo
 - [X] basic complete 
 - [X] api integration complete
-- [ ] add data time & country 
-- [ ] add 5 day weather status (AKA review forcast json)
+- [X] add data time & country 
+- [X] add 5 day weather status (AKA review forcast json)
 - [ ] add image change as per location weather 
 - [ ] to build a gui based weather app 
 
