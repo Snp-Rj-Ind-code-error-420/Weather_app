@@ -30,6 +30,26 @@ def pull(city_nam,x):
 	return data
 
 
+def data_Formatted_tup(data):
+	lst=set()
+	tm_=''
+	re_lst=[]
+	for _ in data:
+		if _ == 'list':
+			tm_=((data['list'][0]['dt_txt']).split(' '))[1]
+			for _ in data['list']:
+				if ((_['dt_txt']).split(' '))[0] not in lst and ((_['dt_txt']).split(' '))[1] == tm_ :
+					re_lst.append(_)
+					lst.add(((_['dt_txt']).split(' '))[0])
+			
+	ren_tuple=tuple(re_lst)
+	return ren_tuple
+
+	# print(ren_tuple)
+	# for _ in ren_tuple:
+		# print(_)
+
+
 
 def prn():
 	#Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit
@@ -83,14 +103,19 @@ if __name__=='__main__':
 	# prn()
 
 
-	data=pull('new york',0)
+	data=pull('new york',1)
+	f_d_r=data_Formatted_tup(data)
+	print(len(f_d_r))
+	print(f_d_r[0])
+	print(f_d_r[2])
+	print(f_d_r[4])
+	exit()
 	print(data)
 	print(data['sys']['country'])
 	print(data['name'])
 	print(f'{ data['name']},{data['sys']['country']}')
 	print(data['weather'][0]['description'])
 
-	exit()
 	print(len(data))
 	print()
 	lst=set()
@@ -115,9 +140,6 @@ if __name__=='__main__':
 					print(re_lst.append(_))
 					lst.add(((_['dt_txt']).split(' '))[0])
 					
-
-
-
 		
 	print()	
 	print(lst)

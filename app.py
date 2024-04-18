@@ -40,7 +40,10 @@ class Header(ttkb.Frame):
 
 	def create_title(self):
 		lab1=ttkb.Label(self,text=WIN_TITLE, font=FONT_TP[0],style=STYL[1][LST])
-		lab1.pack(side='left',expand=True,fill='both',padx=10,pady=10)
+		sep=ttkb.Separator(self, orient='horizontal',style=STYL[1][LST])
+
+		lab1.pack(side='top',expand=True,fill='both',padx=10,pady=10)
+		sep.pack(side='top',expand=True,fill='both',padx=20)
 
 
 
