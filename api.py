@@ -43,6 +43,7 @@ def data_Formatted_tup(data):
 					lst.add(((_['dt_txt']).split(' '))[0])
 			
 	ren_tuple=tuple(re_lst)
+	print(ren_tuple)
 	return ren_tuple
 
 	# print(ren_tuple)
@@ -107,7 +108,9 @@ if __name__=='__main__':
 	f_d_r=data_Formatted_tup(data)
 	print(len(f_d_r))
 	print(f_d_r[0])
+	print(f_d_r[1])
 	print(f_d_r[2])
+	print(f_d_r[3])
 	print(f_d_r[4])
 	exit()
 	print(data)

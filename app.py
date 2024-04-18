@@ -1,6 +1,6 @@
 # ui of the program
 from PIL import Image, ImageTk
-from api import pull
+from api import pull ,data_Formatted_tup
 from constvar import *
 import tkinter as tk 
 import ttkbootstrap as ttkb  
@@ -71,9 +71,13 @@ class All_frm(ttkb.Frame):
 		frm3=ttkb.Frame(self,style=STYL[4][LST])
 		frm3.place(relx=0.0,rely=0.2,relwidth=1,relheight=0.24)
 
+		frm4=ttkb.Frame(self,style=STYL[3][LST])
+		frm4.place(relx=0.0,rely=0.44,relwidth=1,relheight=0.40)
+
 		self.search_unit(frm1)
 		self.location_unit(frm2)
 		self.display_unit(frm3)
+		self.forcast_unit(frm4)
 
 
 
@@ -95,8 +99,8 @@ class All_frm(ttkb.Frame):
 
 		# entry1.insert('enter the city')
 
-		entry1.grid(row=0,column=0,sticky='nsew',columnspan=2,padx = 20, pady = 10)
-		self.btn1.grid(row=0,column=2,sticky='nsew',padx = 20, pady = 10)
+		entry1.grid(row=0,column=0,sticky='nsew',columnspan=2,padx = 20, pady = 5)
+		self.btn1.grid(row=0,column=2,sticky='nsew',padx = 20, pady = 5)
 	
 
 
@@ -145,6 +149,64 @@ class All_frm(ttkb.Frame):
 		# self.lab101.grid(row=0,column=1,sticky='nsew',padx = 20, pady = 10)/
 
 
+	def forcast_unit(self,parent):
+
+		parent.columnconfigure((0,1,2,3,4,5,6),weight=1,uniform='d')
+		parent.rowconfigure(0,weight=1,uniform='d')
+		parent.rowconfigure(1,weight=1,uniform='d')
+		parent.rowconfigure(2,weight=1,uniform='d')
+		parent.rowconfigure(3,weight=1,uniform='d')
+
+		sep=ttkb.Separator(parent, orient='horizontal',style=STYL[1][LST]) #---
+		self.tm_mx_d1=ttkb.Label(parent,text='tem max',font=FONT_TP[1],style=STYL[7][LST])
+		self.tm_mn_d1=ttkb.Label(parent,text='tem min',font=FONT_TP[1],style=STYL[7][LST])
+		self.tm_date1=ttkb.Label(parent,text='date',font=FONT_TP[1],style=STYL[7][LST])
+
+
+		sep_ver1=ttkb.Separator(parent, orient='vertical',style=STYL[1][LST])    #|
+		self.tm_mx_d2=ttkb.Label(parent,text='tem min',font=FONT_TP[1],style=STYL[7][LST])
+		self.tm_mn_d2=ttkb.Label(parent,text='tem min',font=FONT_TP[1],style=STYL[7][LST])
+		self.tm_date2=ttkb.Label(parent,text='date',font=FONT_TP[1],style=STYL[7][LST])
+
+		sep_ver2=ttkb.Separator(parent, orient='vertical',style=STYL[1][LST])    #|
+		self.tm_mx_d3=ttkb.Label(parent,text='tem min',font=FONT_TP[1],style=STYL[7][LST])
+		self.tm_mn_d3=ttkb.Label(parent,text='tem min',font=FONT_TP[1],style=STYL[7][LST])
+		self.tm_date3=ttkb.Label(parent,text='date',font=FONT_TP[1],style=STYL[7][LST])
+
+		sep_ver3=ttkb.Separator(parent, orient='vertical',style=STYL[1][LST])    #|
+		self.tm_mx_d4=ttkb.Label(parent,text='tem min',font=FONT_TP[1],style=STYL[7][LST])
+		self.tm_mn_d4=ttkb.Label(parent,text='tem min',font=FONT_TP[1],style=STYL[7][LST])
+		self.tm_date4=ttkb.Label(parent,text='date',font=FONT_TP[1],style=STYL[7][LST])
+
+
+
+    #-------------------------------------------------------------------------------------------
+
+
+
+
+
+		sep.grid(row=0,column=1,columnspan=5,sticky='we',padx=10)
+		self.tm_mx_d1.grid(row=1,column=0,sticky='nswe',padx = 5, pady = 5)
+		self.tm_mn_d1.grid(row=2,column=0,sticky='nswe',padx = 5, pady = 5)
+		self.tm_date1.grid(row=3,column=0,sticky='nsew',padx=5,pady=5)
+
+
+		sep_ver1.grid(row=1,column=1,rowspan=2,sticky='ns',pady=1,padx=0)
+		self.tm_mx_d2.grid(row=1,column=2,sticky='nswe',padx = 5, pady = 5)
+		self.tm_mn_d2.grid(row=2,column=2,sticky='nswe',padx = 5, pady = 5)
+		self.tm_date2.grid(row=3,column=2,sticky='nsew',padx=5,pady=5)
+
+		sep_ver2.grid(row=1,column=3,rowspan=2,sticky='ns',pady=1,padx=0)
+		self.tm_mx_d3.grid(row=1,column=4,sticky='nswe',padx = 5, pady = 5)
+		self.tm_mn_d3.grid(row=2,column=4,sticky='nswe',padx = 5, pady = 5)
+		self.tm_date3.grid(row=3,column=4,sticky='nsew',padx=5,pady=5)
+
+		sep_ver3.grid(row=1,column=5,rowspan=2,sticky='ns',pady=1,padx=0)
+		self.tm_mx_d4.grid(row=1,column=6,sticky='nswe',padx = 5, pady = 5)
+		self.tm_mn_d4.grid(row=2,column=6,sticky='nswe',padx = 5, pady = 5)
+		self.tm_date4.grid(row=3,column=6,sticky='nsew',padx=5,pady=5)
+
 
 
 
@@ -153,29 +215,63 @@ class All_frm(ttkb.Frame):
 
 
 	def prnt(self):
-		self.btn1.config(state='disabled')
-		print(self.input_city.get())
-		if self.input_city.get()!='':
-			data=pull(self.input_city.get(),0)
-			date_today=time.localtime(data['dt'])
+		try:
 
-			print(f'date = {data['dt']} {time.localtime(data['dt'])}\n {date_today[2]}/{date_today[1]}/{date_today[0]} {date_today[3]}:{date_today[4]}:{date_today[5]} ')
-			self.location.config(text=f'{ data['name']},{data['sys']['country']}')
-			self.labimg.config(text=f'  {data['main']['temp']}°C ,{data['weather'][0]['description']}')
-			self.pressure.config(text=f'pressure {data['main']['pressure']} hPa')
-			self.humidity.config(text=f'humidity {data['main']['humidity']} %')
-			self.windspeed.config(text=f'windspeed {data['wind']['speed']} m/s')
-			self.cloud.config(text=f'cloud {data['clouds']['all']} %')
+			self.btn1.config(state='disabled')
+			print(self.input_city.get())
+			if self.input_city.get()!='':
+				data=pull(self.input_city.get(),0)
+				forcast_data=data_Formatted_tup(pull(self.input_city.get(),1))
+				date_today=time.localtime(data['dt'])
 
-			sunrise=time.localtime(data['sys']['sunrise'])
-			sunset=time.localtime(data['sys']['sunset'])
+				print(f'date = {data['dt']} {time.localtime(data['dt'])}\n {date_today[2]}/{date_today[1]}/{date_today[0]} {date_today[3]}:{date_today[4]}:{date_today[5]} ')
 
-			self.sunrise.config(text=f'sunrise {sunrise[2]}/{sunrise[1]}/{sunrise[0]} {sunrise[3]}:{sunrise[4]}:{sunrise[5]}')
-			self.sunset.config(text=f'sunset {sunset[2]}/{sunset[1]}/{sunset[0]} {sunset[3]}:{sunset[4]}:{sunset[5]}')
-			self.btn1.config(state='active')
-		else:
-			print('empty string')
+				self.location.config(text=f'{ data['name']},{data['sys']['country']}')
+				self.labimg.config(text=f'  {data['main']['temp']}°C ,{data['weather'][0]['description']}')
+				self.pressure.config(text=f'pressure {data['main']['pressure']} hPa')
+				self.humidity.config(text=f'humidity {data['main']['humidity']} %')
+				self.windspeed.config(text=f'windspeed {data['wind']['speed']} m/s')
+				self.cloud.config(text=f'cloud {data['clouds']['all']} %')
+
+				sunrise=time.localtime(data['sys']['sunrise'])
+				sunset=time.localtime(data['sys']['sunset'])
+
+				self.sunrise.config(text=f'sunrise {sunrise[2]}/{sunrise[1]}/{sunrise[0]} {sunrise[3]}:{sunrise[4]}:{sunrise[5]}')
+				self.sunset.config(text=f'sunset {sunset[2]}/{sunset[1]}/{sunset[0]} {sunset[3]}:{sunset[4]}:{sunset[5]}')
+
+
+
+				self.tm_mx_d1.config(text=f'temp max {forcast_data[1]['main']['temp_max']}')
+				self.tm_mn_d1.config(text=f'temp min {forcast_data[1]['main']['temp_min']}')
+				self.tm_date1.config(text=f' {(forcast_data[1]['dt_txt']).split(' ')[0]} \n {(forcast_data[1]['dt_txt']).split(' ')[1]} ')
+
+
+				self.tm_mx_d2.config(text=f'temp max {forcast_data[2]['main']['temp_max']}')
+				self.tm_mn_d2.config(text=f'temp min {forcast_data[2]['main']['temp_min']}')
+				self.tm_date2.config(text=f' {(forcast_data[2]['dt_txt']).split(' ')[0]} \n {(forcast_data[1]['dt_txt']).split(' ')[1]} ')
+
+				self.tm_mx_d3.config(text=f'temp max {forcast_data[3]['main']['temp_max']}')
+				self.tm_mn_d3.config(text=f'temp min {forcast_data[3]['main']['temp_min']}')
+				self.tm_date3.config(text=f' {(forcast_data[3]['dt_txt']).split(' ')[0]} \n {(forcast_data[1]['dt_txt']).split(' ')[1]} ')
+
+
+				self.tm_mx_d4.config(text=f'temp max {forcast_data[4]['main']['temp_max']}')
+				self.tm_mn_d4.config(text=f'temp min {forcast_data[4]['main']['temp_min']}')
+				self.tm_date4.config(text=f' {(forcast_data[4]['dt_txt']).split(' ')[0]} \n {(forcast_data[1]['dt_txt']).split(' ')[1]} ')
+
+
+
+
+				self.btn1.config(state='active')
+			else:
+				print('empty string')
+				self.btn1['state']='active'
+
+				
+		except Exception as e:
+			print('error occure>>',e)
 			self.btn1['state']='active'
+
 
 
 

@@ -4,7 +4,7 @@
 
 debug=False
 # debug=True
-THM='pulse'
+THM='vapor'
 TITLE_BAR='Weather App' # tital bar title
 SIZE_WIN=(405,390)
 
